@@ -11,6 +11,7 @@ REPORT_ID = "3061"
 MAP_ID = "64"
 DB_PATH = "sqlite:///./data/functional_toilet_faciltiy_report_3601.sqlite"
 RAW_FOLDER_PATH = "./raw/functional_toilet_faciltiy_report_3601/"
+DISTRICTS_JSON_DATA_FILE_PATH = "./data/UDISE_Districts.json"
 FILE_NAME_FORMAT = "{REPORT_ID}_{MAP_ID}_{LEVEL}_{STATE}_{DISTRICT}_{BLOCK}_{YEAR}.json"
 YEARS = sorted(["2013-14","2014-15","2015-16","2016-17","2017-18","2018-19","2019-20"], reverse=True)
 STATES = range(1, 38)
@@ -19,7 +20,7 @@ DB = dataset.connect(DB_PATH)
 
 DB_REQUEST_INFO_TABLE = DB["request_info"]
 
-def get_data(map_id, year, state):
+def get_data(map_id, year, state, district="NA", block="NA"):
 
     cookies = {
         'JSESSIONID': 'C0B970EABBA839E3C1861C74DF794DE9',
@@ -39,7 +40,7 @@ def get_data(map_id, year, state):
         'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:93.0) Gecko/20100101 Firefox/93.0',
     }
 
-    data = '{"mapId":"'+map_id+'","dependencyValue":"{\\"year\\":\\"'+year+'\\",\\"state\\":\\"'+state+'\\",\\"dist\\":\\"none\\",\\"block\\":\\"none\\"}","isDependency":"Y","paramName":"civilian","paramValue":"","schemaName":"national","reportType":"T"}'
+    data = '{"mapId":"'+map_id+'","dependencyValue":"{\\"year\\":\\"'+year+'\\",\\"state\\":\\"'+state+'\\",\\"dist\\":\\"'+district+'\\",\\"block\\":\\"none\\"}","isDependency":"Y","paramName":"civilian","paramValue":"","schemaName":"national","reportType":"T"}'
     print(data)
     response = requests.post('https://dashboard.udiseplus.gov.in/BackEnd-master/api/report/getTabularData', headers=headers, cookies=cookies, data=data)
     print(response)
@@ -81,12 +82,39 @@ def get_state_data():
                 #input(" Continue ")
                 sleep(2)
 
+def get_district_data():
+    districts_json_data_file = open(DISTRICTS_JSON_DATA_FILE_PATH, "r")
+    districts_json_data = json.loads(districts_json_data_file.read())
+    districts = sorted(districts_json_data["rowValue"],  key=lambda x: x["udise_state_code"])
+    districts_json_data_file.close()
+    for year in YEARS:
+        for district in districts:
+            state_code = district["udise_state_code"]
+            district_code = district["udise_district_code"] 
+            district_name = district["district_name"] 
+            RAW_FILE_PATH = RAW_FOLDER_PATH + FILE_NAME_FORMAT.format(REPORT_ID=REPORT_ID, MAP_ID=MAP_ID, LEVEL="district", STATE=state_code, DISTRICT=district_code, BLOCK="NA" ,YEAR=year)
+            print(RAW_FILE_PATH)
+            #input("wait")
+            if DB_REQUEST_INFO_TABLE.find_one(file_path=RAW_FILE_PATH):
+                print("EXISTS: {RAW_FILE_PATH}".format(RAW_FILE_PATH=RAW_FILE_PATH))
+            else:
+                DB.begin()
+                data = get_data(MAP_ID, year, state=state_code, district=district_code)
+                write_data(data,RAW_FILE_PATH)
+                db_data = {"map_id":MAP_ID, "report_id": REPORT_ID, "level":"district", "state":state_code, "district":district_code, "block":"NA", "scraped":"yes", "parsed":"no", "file_path": RAW_FILE_PATH, "year": year, "level_name": district_name}
+                DB_REQUEST_INFO_TABLE.insert(db_data)
+                DB.commit()
+                #input(" Continue ")
+                sleep(4)
+
 def main():
     #NATIONAL LEVEL
     # get_national_data()
 
     #GET STATE LEVEL DATA, BY STATE
-    get_state_data()
+    #get_state_data()
+
+    get_district_data()
 
 if __name__ == "__main__":
     main()
