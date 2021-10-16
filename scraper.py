@@ -6,11 +6,12 @@ from time import sleep
 
 from requests.structures import CaseInsensitiveDict
 
-# Number of Schools having Functional Toilet Facility by School Category and Management 
-REPORT_ID = "3061"
-MAP_ID = "64"
-DB_PATH = "sqlite:///./data/functional_toilet_faciltiy_report_3601.sqlite"
-RAW_FOLDER_PATH = "./raw/functional_toilet_faciltiy_report_3601/"
+REPORT_ID = "1003"
+MAP_ID = "81"
+
+REPORT_NAME = "number_of_schools_report_1003"
+DB_PATH = "sqlite:///./data/{REPORT_NAME}.sqlite".format(REPORT_NAME=REPORT_NAME)
+RAW_FOLDER_PATH = "./raw/{REPORT_NAME}/".format(REPORT_NAME=REPORT_NAME)
 DISTRICTS_JSON_DATA_FILE_PATH = "./data/UDISE_Districts.json"
 FILE_NAME_FORMAT = "{REPORT_ID}_{MAP_ID}_{LEVEL}_{STATE}_{DISTRICT}_{BLOCK}_{YEAR}.json"
 YEARS = sorted(["2013-14","2014-15","2015-16","2016-17","2017-18","2018-19","2019-20"], reverse=True)
@@ -112,9 +113,9 @@ def main():
     # get_national_data()
 
     #GET STATE LEVEL DATA, BY STATE
-    #get_state_data()
+    get_state_data()
 
-    get_district_data()
+    #get_district_data()
 
 if __name__ == "__main__":
     main()
