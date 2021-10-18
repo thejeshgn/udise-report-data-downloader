@@ -6,10 +6,14 @@ from time import sleep
 
 from requests.structures import CaseInsensitiveDict
 
-REPORT_ID = "1003"
-MAP_ID = "81"
+# REPORT_ID = "1003"
+# MAP_ID = "81"
+# REPORT_NAME = "number_of_schools_report_1003"
 
-REPORT_NAME = "number_of_schools_report_1003"
+REPORT_ID = "3031"
+MAP_ID = "54"
+REPORT_NAME = "schools_having_library_report_3031"
+
 DB_PATH = "sqlite:///./data/{REPORT_NAME}.sqlite".format(REPORT_NAME=REPORT_NAME)
 RAW_FOLDER_PATH = "./raw/{REPORT_NAME}/".format(REPORT_NAME=REPORT_NAME)
 DISTRICTS_JSON_DATA_FILE_PATH = "./data/UDISE_Districts.json"
@@ -112,10 +116,10 @@ def main():
     #NATIONAL LEVEL
     # get_national_data()
 
-    #GET STATE LEVEL DATA, BY STATE
-    get_state_data()
+    # GET STATE LEVEL DATA, BY STATE
+    # get_state_data()
 
-    #get_district_data()
+    get_district_data()
 
 if __name__ == "__main__":
     main()
