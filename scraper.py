@@ -10,13 +10,23 @@ from requests.structures import CaseInsensitiveDict
 # MAP_ID = "81"
 # REPORT_NAME = "number_of_schools_report_1003"
 
-REPORT_ID = "3031"
-MAP_ID = "54"
-REPORT_NAME = "schools_having_library_report_3031"
+# REPORT_ID = "3031"
+# MAP_ID = "54"
+# REPORT_NAME = "schools_having_library_report_3031"
 
-DB_PATH = "sqlite:///./data/{REPORT_NAME}.sqlite".format(REPORT_NAME=REPORT_NAME)
+
+# REPORT_ID = "3109"
+# MAP_ID = "80"
+# REPORT_NAME = "schools_having_computer_available_report_3109"
+
+REPORT_ID = "3106"
+MAP_ID = "79"
+REPORT_NAME = "schools_having_internet_facility_report_3106"
+
+
+DB_PATH = "sqlite:///./temp/{REPORT_NAME}.sqlite".format(REPORT_NAME=REPORT_NAME)
 RAW_FOLDER_PATH = "./raw/{REPORT_NAME}/".format(REPORT_NAME=REPORT_NAME)
-DISTRICTS_JSON_DATA_FILE_PATH = "./data/UDISE_Districts.json"
+DISTRICTS_JSON_DATA_FILE_PATH = "./raw/UDISE_Districts.json"
 FILE_NAME_FORMAT = "{REPORT_ID}_{MAP_ID}_{LEVEL}_{STATE}_{DISTRICT}_{BLOCK}_{YEAR}.json"
 YEARS = sorted(["2013-14","2014-15","2015-16","2016-17","2017-18","2018-19","2019-20"], reverse=True)
 STATES = range(1, 38)
@@ -56,6 +66,10 @@ def write_data(data, file_name):
     f.write(json.dumps(data))
     f.close()
 
+def pause():
+    #input(" Continue ")
+    sleep(5)
+
 
 def format_state_code(s):
     s = s.zfill(2)
@@ -71,6 +85,7 @@ def get_national_data():
         input(" Continue ")
 
 def get_state_data():
+    print("----------------- STATES")    
     for year in YEARS:
         for state in STATES:
             state_code = format_state_code(str(state))
@@ -84,10 +99,10 @@ def get_state_data():
                 db_data = {"map_id":MAP_ID, "report_id": REPORT_ID, "level":"state", "state":state_code, "district":"NA", "block":"NA", "scraped":"yes", "parsed":"no", "file_path": RAW_FILE_PATH, "year": year}
                 DB_REQUEST_INFO_TABLE.insert(db_data)
                 DB.commit()
-                #input(" Continue ")
-                sleep(2)
+                pause()
 
 def get_district_data():
+    print("----------------- DISTICTS")
     districts_json_data_file = open(DISTRICTS_JSON_DATA_FILE_PATH, "r")
     districts_json_data = json.loads(districts_json_data_file.read())
     districts = sorted(districts_json_data["rowValue"],  key=lambda x: x["udise_state_code"])
@@ -109,16 +124,21 @@ def get_district_data():
                 db_data = {"map_id":MAP_ID, "report_id": REPORT_ID, "level":"district", "state":state_code, "district":district_code, "block":"NA", "scraped":"yes", "parsed":"no", "file_path": RAW_FILE_PATH, "year": year, "level_name": district_name}
                 DB_REQUEST_INFO_TABLE.insert(db_data)
                 DB.commit()
-                #input(" Continue ")
-                sleep(4)
+                pause()
 
 def main():
+    print("----------------- RUNNING ---------------------")
+    print("----------------- REPORT_ID={}".format(REPORT_ID))
+    print("----------------- MAP_ID={}".format(MAP_ID))
+    print("----------------- REPORT_NAME={}".format(REPORT_NAME))
+
     #NATIONAL LEVEL
     # get_national_data()
 
     # GET STATE LEVEL DATA, BY STATE
-    # get_state_data()
+    #get_state_data()
 
+    # GET DISTRICT LEVEL DATA, BY DISTRICT
     get_district_data()
 
 if __name__ == "__main__":
