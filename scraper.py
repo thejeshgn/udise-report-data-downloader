@@ -74,8 +74,8 @@ def write_data(data, file_name):
     f.close()
 
 def pause(msg="Continue"):
-    sleep(10)
-    input(msg)
+    sleep(2)
+    #input(msg)
 
 
 def format_state_code(s):
