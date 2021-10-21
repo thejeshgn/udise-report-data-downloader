@@ -7,9 +7,9 @@ from time import sleep
 
 from requests.structures import CaseInsensitiveDict
 
-# REPORT_ID = "1003"
-# MAP_ID = "81"
-# REPORT_NAME = "number_of_schools_report_1003"
+REPORT_ID = "1003"
+MAP_ID = "81"
+REPORT_NAME = "number_of_schools_report_1003"
 
 # REPORT_ID = "3031"
 # MAP_ID = "54"
@@ -24,9 +24,9 @@ from requests.structures import CaseInsensitiveDict
 # MAP_ID = "79"
 # REPORT_NAME = "schools_having_internet_facility_report_3106"
 
-REPORT_ID = "4017"
-MAP_ID = "117"
-REPORT_NAME = "student_dropout_rate_report_4017"
+# REPORT_ID = "4017"
+# MAP_ID = "117"
+# REPORT_NAME = "student_dropout_rate_report_4017"
 
 # REPORT_ID = "4014"
 # MAP_ID = "113"
@@ -61,7 +61,8 @@ def get_data(map_id, year, state, district="NA", block="NA"):
         'Sec-Fetch-Site': 'same-origin',
         'User-Agent': 'Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:93.0) Gecko/20100101 Firefox/93.0',
     }
-
+    if district == "NA":
+        district = "none"
     data = '{"mapId":"'+map_id+'","dependencyValue":"{\\"year\\":\\"'+year+'\\",\\"state\\":\\"'+state+'\\",\\"dist\\":\\"'+district+'\\",\\"block\\":\\"none\\"}","isDependency":"Y","paramName":"civilian","paramValue":"","schemaName":"national","reportType":"T"}'
     print(data)
     response = requests.post('https://dashboard.udiseplus.gov.in/BackEnd-master/api/report/getTabularData', headers=headers, cookies=cookies, data=data)
