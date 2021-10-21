@@ -4,7 +4,8 @@
 ## Credit
 - You can credit Thejesh GN and link to https://thejeshgn.com
 
-## Columns
+## School Related Datasets
+### Columns
 
 - cat1 - PS (I-V)
 - cat2 - UPS (I - VIII)
@@ -20,3 +21,15 @@
 - Total - Total
 - sch_mgmt_id = id school management type
 - sch_mgmt_name = name of school management type
+
+## Student Related Datasets
+
+### Columns
+
+### Example Rate Calculation
+
+```pri_girls_repetitionRate = (pri_girl_c1_c5_current_rptr/pri_girl_c1_c5_previous) * 100```
+
+```pri_girls_promotionRate  =  (pri_girl_c2_c6_current_fresh/pri_girl_c1_c5_previous) * 100```
+
+```pri_girls_dropoutRate    = (100 - (pri_girls_promotionRate + pri_girls_repetitionRate)```
