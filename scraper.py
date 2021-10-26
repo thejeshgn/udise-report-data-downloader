@@ -35,7 +35,7 @@ REPORT_NAME = "number_of_schools_report_1003"
 RAW_FOLDER_PATH = "./raw/{REPORT_NAME}/".format(REPORT_NAME=REPORT_NAME)
 DISTRICTS_JSON_DATA_FILE_PATH = "./raw/UDISE_Districts.json"
 FILE_NAME_FORMAT = "{REPORT_ID}_{MAP_ID}_{LEVEL}_{STATE}_{DISTRICT}_{BLOCK}_{YEAR}.json"
-YEARS = sorted(["2013-14","2014-15","2015-16","2016-17","2017-18","2018-19","2019-20"], reverse=True)
+YEARS = sorted(["2012-13","2013-14","2014-15","2015-16","2016-17","2017-18","2018-19","2019-20"], reverse=True)
 STATES = range(1, 38)
 
 #DB_PATH = "sqlite:///./temp/{REPORT_NAME}.sqlite".format(REPORT_NAME=REPORT_NAME)
@@ -141,10 +141,10 @@ def main():
     # get_national_data()
 
     #GET STATE LEVEL DATA, BY STATE
-    #get_state_data()
+    get_state_data()
 
     # # GET DISTRICT LEVEL DATA, BY DISTRICT
-    get_district_data()
+    #get_district_data()
 
 if __name__ == "__main__":
     main()
