@@ -7,9 +7,13 @@ from time import sleep
 
 from requests.structures import CaseInsensitiveDict
 
-REPORT_ID = "1003"
-MAP_ID = "81"
-REPORT_NAME = "number_of_schools_report_1003"
+REPORT_ID = "3061"
+MAP_ID = "64"
+REPORT_NAME = "functional_toilet_facility_report_3061"
+
+# REPORT_ID = "1003"
+# MAP_ID = "81"
+# REPORT_NAME = "number_of_schools_report_1003"
 
 # REPORT_ID = "3031"
 # MAP_ID = "54"
