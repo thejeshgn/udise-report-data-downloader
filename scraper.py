@@ -145,10 +145,10 @@ def main():
     # get_national_data()
 
     #GET STATE LEVEL DATA, BY STATE
-    get_state_data()
+    #get_state_data()
 
     # # GET DISTRICT LEVEL DATA, BY DISTRICT
-    #get_district_data()
+    get_district_data()
 
 if __name__ == "__main__":
     main()
