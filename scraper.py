@@ -7,9 +7,9 @@ from time import sleep
 
 from requests.structures import CaseInsensitiveDict
 
-REPORT_ID = "3061"
-MAP_ID = "64"
-REPORT_NAME = "functional_toilet_facility_report_3061"
+# REPORT_ID = "3061"
+# MAP_ID = "64"
+# REPORT_NAME = "functional_toilet_facility_report_3061"
 
 # REPORT_ID = "1003"
 # MAP_ID = "81"
@@ -20,9 +20,9 @@ REPORT_NAME = "functional_toilet_facility_report_3061"
 # REPORT_NAME = "schools_having_library_report_3031"
 
 
-# REPORT_ID = "3109"
-# MAP_ID = "80"
-# REPORT_NAME = "schools_having_computer_available_report_3109"
+REPORT_ID = "3109"
+MAP_ID = "80"
+REPORT_NAME = "schools_having_computer_available_report_3109"
 
 # REPORT_ID = "3106"
 # MAP_ID = "79"
@@ -145,10 +145,10 @@ def main():
     # get_national_data()
 
     #GET STATE LEVEL DATA, BY STATE
-    #get_state_data()
+    get_state_data()
 
     # # GET DISTRICT LEVEL DATA, BY DISTRICT
-    get_district_data()
+    #get_district_data()
 
 if __name__ == "__main__":
     main()
