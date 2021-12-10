@@ -15,14 +15,14 @@ from requests.structures import CaseInsensitiveDict
 # MAP_ID = "81"
 # REPORT_NAME = "number_of_schools_report_1003"
 
-# REPORT_ID = "3031"
-# MAP_ID = "54"
-# REPORT_NAME = "schools_having_library_report_3031"
+REPORT_ID = "3031"
+MAP_ID = "54"
+REPORT_NAME = "schools_having_library_report_3031"
 
 
-REPORT_ID = "3109"
-MAP_ID = "80"
-REPORT_NAME = "schools_having_computer_available_report_3109"
+# REPORT_ID = "3109"
+# MAP_ID = "80"
+# REPORT_NAME = "schools_having_computer_available_report_3109"
 
 # REPORT_ID = "3106"
 # MAP_ID = "79"
