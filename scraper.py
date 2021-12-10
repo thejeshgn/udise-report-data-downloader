@@ -15,14 +15,14 @@ from requests.structures import CaseInsensitiveDict
 # MAP_ID = "81"
 # REPORT_NAME = "number_of_schools_report_1003"
 
-REPORT_ID = "3031"
-MAP_ID = "54"
-REPORT_NAME = "schools_having_library_report_3031"
+#REPORT_ID = "3031"
+#MAP_ID = "54"
+#REPORT_NAME = "schools_having_library_report_3031"
 
 
-# REPORT_ID = "3109"
-# MAP_ID = "80"
-# REPORT_NAME = "schools_having_computer_available_report_3109"
+REPORT_ID = "3109"
+MAP_ID = "80"
+REPORT_NAME = "schools_having_computer_available_report_3109"
 
 # REPORT_ID = "3106"
 # MAP_ID = "79"
@@ -39,7 +39,7 @@ REPORT_NAME = "schools_having_library_report_3031"
 RAW_FOLDER_PATH = "./raw/{REPORT_NAME}/".format(REPORT_NAME=REPORT_NAME)
 DISTRICTS_JSON_DATA_FILE_PATH = "./raw/UDISE_Districts.json"
 FILE_NAME_FORMAT = "{REPORT_ID}_{MAP_ID}_{LEVEL}_{STATE}_{DISTRICT}_{BLOCK}_{YEAR}.json"
-YEARS = sorted(["2013-14","2014-15","2015-16","2016-17","2017-18","2018-19","2019-20"], reverse=True)
+YEARS = sorted(["2018-19","2019-20"], reverse=True)
 STATES = range(1, 38)
 
 #DB_PATH = "sqlite:///./temp/{REPORT_NAME}.sqlite".format(REPORT_NAME=REPORT_NAME)
